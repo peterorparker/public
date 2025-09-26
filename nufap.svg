@@ -1,8 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 42">
-  <rect width="100%" height="100%" rx="4" ry="4" fill="rgb(255,0,85)" />
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-        font-family="Arial, sans-serif" font-size="18" font-weight="bold"
-        fill="white">
-    Nufap
-  </text>
+<!-- paste this inline inside your HTML body (not as an <img> src) -->
+<svg id="auto-btn" xmlns="http://www.w3.org/2000/svg"
+     font-family="Arial, sans-serif" font-weight="700" font-size="18">
+  <!-- background -->
+  <rect id="bg" x="0" y="0" rx="6" ry="6" fill="rgb(255,0,85)"/>
+
+  <!-- label (change text here) -->
+  <text id="label"
+        text-anchor="middle" dominant-baseline="middle"
+        fill="#fff">Nufap</text>
+
+  <script><![CDATA[
+    (function(){
+    const script = document.currentScript;
+    // fallback to element by id if ownerSVGElement isn't available
+    const svg = (script && (script.ownerSVGElement || script.parentNode)) || document.getElementById('auto-btn');
+    const text = svg.querySelector('#label');
+    const rect = svg.querySelector('#bg');
+    const paddingX = 14; // horizontal padding
+    const paddingY = 8;  // vertical padding
+
+    function doResize(){
+    try {
+    // use requestAnimationFrame to wait for layout/paint when needed
+    requestAnimationFrame(() => {
+    const bbox = text.getBBox(); // measure rendered text
+    const width = Math.ceil(bbox.width + paddingX * 2);
+    const height = Math.ceil(bbox.height + paddingY * 2);
+
+    rect.setAttribute('width', width);
+    rect.setAttribute('height', height);
+
+    // center text: text-anchor + dominant-baseline "middle" + x/y at center
+    text.setAttribute('x', width / 2);
+    text.setAttribute('y', height / 2);
+
+    // set SVG size + viewBox so it scales nicely and only needs this script to change
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    });
+    } catch (err) {
+    console.error('SVG auto-resize failed:', err);
+    }
+    }
+
+    // run a few times to handle delayed font loading / slow layout
+    doResize();
+    window.addEventListener('load', doResize);
+    // small delayed retry (helps if webfont arrives slightly later)
+    setTimeout(doResize, 120);
+    })();
+    ]]></script>
 </svg>
