@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="150" height="40" viewBox="0 0 150 40">
-  <rect rx="25" width="150" height="40" fill="crimson"></rect>
-  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">NuFap</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 42" width="140" height="42">
+  <!-- Background rectangle -->
+  <rect x="0" y="0" width="140" height="42" rx="4" ry="4" fill="rgb(255,0,85)" />
+
+  <!-- Button text -->
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+        font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+        fill="white">
+    Nufap
+  </text>
 </svg>
